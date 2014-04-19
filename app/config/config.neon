@@ -1,0 +1,27 @@
+#
+# SECURITY WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+#
+# If you don't protect this directory from direct web access, anybody will be able to see your passwords.
+# http://nette.org/security-warning
+#
+parameters:
+
+php:
+	date.timezone: Europe/Prague
+	# zlib.output_compression: yes
+
+nette:
+	application:
+		mapping:
+			*: App\*Module\Presenters\*Presenter
+
+extensions:
+	backup: Flame\DbBackup\DI\DbBackupExtension
+
+backup:
+	ftp: %remote%
+
+services:
+	- App\Router\RouterFactory
+	- Flame\DbBackup\Database\Drivers\MysqlDriver(%database.host%, %database.user%, %database.password%, %database.dbname%)
+	router: @App\Router\RouterFactory::createRouter
