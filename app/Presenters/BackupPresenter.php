@@ -17,7 +17,7 @@ class BackupPresenter extends Presenter
 
 	public function actionDefault()
 	{
-//		$this->backup->create($this->getContext()->expand('%tempDir%' . '/backups'));
+		$this->backup->create($this->getContext()->expand('%tempDir%' . '/backups'));
 		$this->terminate();
 	}
 }
