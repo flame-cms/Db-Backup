@@ -23,5 +23,11 @@ backup:
 
 services:
 	- App\Router\RouterFactory
-	- Flame\DbBackup\Database\Drivers\MysqlDriver(%database.host%, %database.user%, %database.password%, %database.dbname%)
+	enlanDriver: Flame\DbBackup\Database\Drivers\MysqlDriver(%enlanDatabase.host%, %enlanDatabase.user%, %enlanDatabase.password%, %enlanDatabase.dbname%)
+	bookingDriver: Flame\DbBackup\Database\Drivers\MysqlDriver(%bookingDatabase.host%, %bookingDatabase.user%, %bookingDatabase.password%, %bookingDatabase.dbname%)
+	contextContainer:
+		class: Flame\DbBackup\ContextContainer
+		setup:
+			- addDriver(@enlanDriver)
+			- addDriver(@bookingDriver)
 	router: @App\Router\RouterFactory::createRouter
